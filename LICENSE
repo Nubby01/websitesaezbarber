@@ -1,0 +1,43 @@
+Copyright (c) 2026 Anthara Sáez / Academia SB
+
+All Rights Reserved.
+
+PROPRIETARY SOFTWARE LICENSE
+
+This repository and all of its contents — including without limitation source
+code, design assets, documentation, configuration, and any derivative works —
+are the exclusive property of Anthara Sáez ("Copyright Holder"), unless a
+different owner is expressly indicated for a specific file or asset.
+
+1. GRANT OF RIGHTS
+   No license is granted to any person or entity to use, copy, modify, merge,
+   publish, distribute, sublicense, sell, or create derivative works of this
+   software or its assets, except with prior written permission from the
+   Copyright Holder.
+
+2. RESTRICTIONS
+   You may not:
+   a) Copy, reproduce, or redistribute any part of this codebase;
+   b) Use this code or design commercially or non-commercially without
+      authorization;
+   c) Remove, alter, or obscure copyright, authorship, or proprietary notices;
+   d) Reverse engineer, decompile, or attempt to extract source for
+      unauthorized reuse.
+
+3. THIRD-PARTY COMPONENTS
+   Open-source libraries listed in package.json remain under their own
+   licenses. This proprietary notice applies to original project code and
+   assets created for Academia SB / SaezBarber.
+
+4. NO WARRANTY
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL
+   THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY
+   ARISING FROM THE USE OF THIS SOFTWARE.
+
+5. PERMISSION REQUESTS
+   For licensing inquiries or authorized use, contact the Copyright Holder.
+
+Unauthorized use may result in civil and/or criminal liability under
+applicable intellectual property laws.
