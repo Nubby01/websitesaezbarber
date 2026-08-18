@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
-import { useLenis } from '../hooks/useLenis'
+import { scrollLenisToTop, useLenis } from '../hooks/useLenis'
 import { useTheme } from '../hooks/useTheme'
 
 export function Layout() {
@@ -14,12 +14,19 @@ export function Layout() {
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.replace('#', '')
-      window.setTimeout(() => {
+      const scrollToTarget = () => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-      }, 80)
-      return
+      }
+      scrollToTarget()
+      const t1 = window.setTimeout(scrollToTarget, 120)
+      const t2 = window.setTimeout(scrollToTarget, 420)
+      return () => {
+        window.clearTimeout(t1)
+        window.clearTimeout(t2)
+      }
     }
     window.scrollTo(0, 0)
+    scrollLenisToTop(true)
   }, [location.pathname, location.hash])
 
   return (

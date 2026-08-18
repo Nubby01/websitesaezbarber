@@ -9,11 +9,24 @@ export type Alumni = {
   year: number
   specialty: string
   certificate: string
+  /** Uso interno; no se expone en la web pública */
+  email?: string
   instagram?: string
+  /** Dirección completa cuando el cliente la confirma (uso interno / mapa) */
+  address?: string
+  /** Nombre comercial del local */
+  businessName?: string
+  /** Si true, muestra barbería o dirección comercial en la ficha pública */
+  showCommercialAddress?: boolean
+  /** Comuna o ciudad de referencia */
   city?: string
+  /** Región, estado o provincia */
+  region?: string
   country?: string
   lat?: number
   lng?: number
+  /** Zoom fijo para el mapa de la ficha; si no se define se calcula por precisión */
+  mapZoom?: number
   photo?: string
   photoPosition?: string
   photoBackdrop?: string
@@ -121,7 +134,7 @@ const photoStyles: Record<string, PhotoStyle> = {
 }
 
 const defaults = {
-  specialty: 'Visagismo',
+  specialty: 'Visagista SB Masculino & Consultor de Imagen',
   certificate: 'Visagista SB',
 } as const
 
@@ -151,76 +164,99 @@ export const alumni: Alumni[] = [
     id: 'enzo-giovanni-ravello',
     name: 'Enzo Giovanni Ravello',
     generation: '1.0',
+    email: 'Enzor426@gmail.com',
     instagram: 'enzogiovannir',
-    city: 'Santiago',
+    address: 'Pje. Los Mangos 945, Padre Hurtado, Región Metropolitana, Chile',
+    city: 'Padre Hurtado',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -33.4489,
-    lng: -70.6693
+    lat: -33.5673051,
+    lng: -70.8020467,
   }),
   createAlumni({
     id: 'rody-bernazar',
     name: 'Rody Bernazar',
     generation: '1.0',
+    email: 'rodybernazar79@gmail.com',
     instagram: 'rody.ricchh',
-    city: 'Valparaíso',
+    address: 'C. Guayacán 79, Puente Alto, Región Metropolitana, Chile',
+    city: 'Puente Alto',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -33.0472,
-    lng: -71.6127,
+    lat: -33.611026,
+    lng: -70.5580294,
   }),
   createAlumni({
     id: 'matias-gonzalez-toro',
     name: 'Matías González Toro',
     generation: '1.0',
+    email: 'maiastoro.274@gmail.com',
     instagram: 'saitambarber',
-    city: 'Concepción',
+    address: 'Jericó 274, Lo Barnechea, Región Metropolitana, Chile',
+    city: 'Lo Barnechea',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -36.8201,
-    lng: -73.0444
+    lat: -33.3654291,
+    lng: -70.5041642,
   }),
   createAlumni({
     id: 'rodrigo-perez-tobar',
     name: 'Rodrigo Perez Tobar',
     generation: '1.0',
+    email: 'rodrigo.perezto@gmail.com',
     instagram: 'rodrigoperezt_',
-    city: 'Santiago',
+    address:
+      'Hernán Cortés 2829, Depto. 204, Ñuñoa, Región Metropolitana, Chile',
+    city: 'Ñuñoa',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -33.4372,
-    lng: -70.6506,
+    lat: -33.4466868,
+    lng: -70.6016442,
   }),
   createAlumni({
     id: 'bayron-flores',
     name: 'Bayron Flores',
     generation: '1.0',
+    email: 'bayron.flores18@icloud.com',
     instagram: 'bayronflores.vsg',
-    city: 'La Serena',
+    address: 'Estación Máfil 0401, Puente Alto, Región Metropolitana, Chile',
+    city: 'Puente Alto',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -29.9027,
-    lng: -71.2519,
+    lat: -33.6215787,
+    lng: -70.6131484,
   }),
   createAlumni({
     id: 'carlos-aguero',
     name: 'Carlos Aguero',
     generation: '1.0',
+    email: 'aguerovasquezcarlos2001@outlook.es',
     instagram: 'carryoficial1',
-    city: 'Antofagasta',
-    country: 'Chile',
-    lat: -23.6509,
-    lng: -70.3975,
+    address: 'Av. Bolívar Este, Maracay 2101, Aragua, Venezuela',
+    city: 'Maracay',
+    region: 'Aragua',
+    country: 'Venezuela',
+    lat: 10.251095,
+    lng: -67.5980746,
   }),
   createAlumni({
     id: 'sofia-barraza',
     name: 'Sofia Barraza',
     generation: '1.0',
+    email: 'svbb1998@gmail.com',
     instagram: 'sofiav_barraza',
-    city: 'Santiago',
+    address: 'Los Arándanos 5101, La Serena, Coquimbo, Chile',
+    city: 'La Serena',
+    region: 'Coquimbo',
     country: 'Chile',
-    lat: -33.4172,
-    lng: -70.6067
+    lat: -29.922296,
+    lng: -71.1999938,
   }),
   createAlumni({
     id: 'jose-juan-rodriguez',
     name: 'Jose Juan Rodriguez Garcia',
     generation: '1.0',
+    email: 'nantli.ayahuasca@hotmail.com',
     instagram: 'jose.visagista.25',
     city: 'Ciudad de México',
     country: 'México',
@@ -231,6 +267,7 @@ export const alumni: Alumni[] = [
     id: 'jose-manuel-rodriguez',
     name: 'Jose Manuel Rodriguez',
     generation: '1.0',
+    email: 'joseazul791@gmail.com',
     city: 'Guadalajara',
     country: 'México',
     lat: 20.6597,
@@ -240,6 +277,7 @@ export const alumni: Alumni[] = [
     id: 'matias-arancibia',
     name: 'Matías Arancibia',
     generation: '1.0',
+    email: 'matias.arancibia.sanchez21@gmail.com',
     instagram: 'matiass_barbero',
     city: 'Temuco',
     country: 'Chile',
@@ -250,6 +288,7 @@ export const alumni: Alumni[] = [
     id: 'enrique-garza',
     name: 'Enrique Garza Morales',
     generation: '1.0',
+    email: 'henrygarza002@hotmail.com',
     instagram: 'soyenriquegarzza',
     city: 'Monterrey',
     country: 'México',
@@ -260,223 +299,261 @@ export const alumni: Alumni[] = [
     id: 'cristopher-ivan',
     name: 'Cristopher Ivan',
     generation: '2.0',
+    email: 'ivancristopher198@gmail.com',
     instagram: 'barberocris',
     city: 'Santiago',
     country: 'Chile',
     lat: -33.4569,
-    lng: -70.6483
+    lng: -70.6483,
   }),
   createAlumni({
     id: 'alberth-tolosa',
     name: 'Alberth Tolosa',
     generation: '2.0',
+    email: 'tolosa.alberth27@gmail.com',
     instagram: 'alberth_barber',
-    city: 'Viña del Mar',
+    address: 'Coronel 2330, Providencia, Región Metropolitana, Chile',
+    city: 'Providencia',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -33.0153,
-    lng: -71.5503,
+    lat: -33.42235,
+    lng: -70.6063912,
   }),
   createAlumni({
     id: 'trinidad-ormazabal',
     name: 'Trinidad Ormazabal',
     generation: '2.0',
+    email: 'trini.sale15@gmail.com',
     instagram: 'trinibarber.cl',
-    city: 'Santiago',
+    address:
+      'Av. Irarrázaval 5185, Of. 508, Ñuñoa, Región Metropolitana, Chile',
+    city: 'Ñuñoa',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -33.425,
-    lng: -70.575
+    lat: -33.4544166,
+    lng: -70.5761759,
   }),
   createAlumni({
     id: 'angelo-alfaro',
     name: 'Angelo Alfaro',
     generation: '2.0',
+    email: 'enriqueangelo777@gmail.com',
     instagram: 'angelosky_barber',
-    city: 'Rancagua',
+    address: 'Av. Laguna Sur 8558, Pudahuel, Región Metropolitana, Chile',
+    city: 'Pudahuel',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -34.1708,
-    lng: -70.7444,
+    lat: -33.4599807,
+    lng: -70.7537082,
   }),
   createAlumni({
     id: 'camilo-rocha',
     name: 'Camilo Rocha',
     generation: '2.0',
+    email: 'camilorochacanilo@gmail.com',
     instagram: 'clubneos.cl',
-    city: 'Santiago',
+    address: "Nicolás Palacios 173, Of. 1, Santa Cruz, O'Higgins, Chile",
+    city: 'Santa Cruz',
+    region: "O'Higgins",
     country: 'Chile',
-    lat: -33.441,
-    lng: -70.655,
+    lat: -34.6368009,
+    lng: -71.3682508,
   }),
   createAlumni({
     id: 'jared-ordenes',
     name: 'Jared Ordenes',
     generation: '2.0',
+    email: 'jaredordenes097@gmail.com',
     instagram: 'jared.ordenes',
-    city: 'Puerto Montt',
+    address: 'Calle José Joaquín Prieto 775, Concepción, Bío Bío, Chile',
+    city: 'Concepción',
+    region: 'Bío Bío',
     country: 'Chile',
-    lat: -41.4693,
-    lng: -72.9424,
+    lat: -36.818984,
+    lng: -73.0569704,
   }),
   createAlumni({
     id: 'carlos-matias-correa',
     name: 'Carlos Matías Correa',
     generation: '2.0',
+    email: 'cacs.gospel@gmail.com',
     instagram: 'matiasccorrea',
-    city: 'Talca',
+    address: 'Río Lauca 836, Peñalolén, Región Metropolitana, Chile',
+    city: 'Peñalolén',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -35.4264,
-    lng: -71.6554,
+    lat: -33.4747864,
+    lng: -70.5294718,
   }),
   createAlumni({
     id: 'jonathan-romero',
     name: 'Jonathan Romero',
     generation: '2.0',
+    email: 'setbarber18@gmail.com',
     instagram: 'barberamamx',
-    city: 'Ciudad de México',
+    address:
+      'Paseo de San Ángel 321, Cumbres 1er Sector, Monterrey, N.L., México',
+    city: 'Monterrey',
+    region: 'Nuevo León',
     country: 'México',
-    lat: 19.391,
-    lng: -99.162
+    lat: 25.6802019,
+    lng: -100.315258,
   }),
   createAlumni({
     id: 'nicolas-paz',
     name: 'Nicolas Paz',
     generation: '2.0',
+    email: 'nicolaspazruiz@icloud.com',
     instagram: 'nicobarber._',
-    city: 'Iquique',
+    address: 'San Rafael 7737, La Cisterna, Región Metropolitana, Chile',
+    city: 'La Cisterna',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -20.2307,
-    lng: -70.1357,
+    lat: -33.5245139,
+    lng: -70.64763,
   }),
   createAlumni({
     id: 'vicente-gomez',
     name: 'Vicente Gomez',
     generation: '2.0',
+    email: 'vicentemilio14@gmail.com',
     instagram: 'barbervg_',
-    city: 'Santiago',
-    country: 'Chile',
-    lat: -33.46,
-    lng: -70.64,
+    address: 'C. de Ferraz 79, Moncloa - Aravaca, 28008 Madrid, España',
+    city: 'Madrid',
+    region: 'Comunidad de Madrid',
+    country: 'España',
+    lat: 40.4322876,
+    lng: -3.7234153,
   }),
   createAlumni({
     id: 'vicente-tapia',
     name: 'Vicente Tapia',
     generation: '2.0',
+    email: 'vrtapiaaguirre@gmail.com',
     instagram: 'rvlosbarber',
-    city: 'Chillán',
+    address: 'De La Cincha 252, Quilicura, Región Metropolitana, Chile',
+    city: 'Quilicura',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -36.6067,
-    lng: -72.1034,
+    lat: -33.3582302,
+    lng: -70.7316501,
   }),
   createAlumni({
     id: 'gricele-vergara',
     name: 'Gricele Vergara',
     generation: '2.0',
+    email: 'gricele.vergara@gmail.com',
     instagram: 'barbergris_',
-    city: 'Santiago',
+    address: 'Av. Gral. Óscar Bonilla 8259, Pudahuel, Región Metropolitana, Chile',
+    city: 'Pudahuel',
+    region: 'Región Metropolitana',
     country: 'Chile',
-    lat: -33.43,
-    lng: -70.62
+    lat: -33.4517765,
+    lng: -70.7429869,
   }),
   createAlumni({
     id: 'mauren-baron',
     name: 'Mauren Baron',
     generation: '2.0',
+    email: 'maurenbarron@gmail.com',
     instagram: 'maurenbarron',
-    city: 'Bogotá',
-    country: 'Colombia',
-    lat: 4.711,
-    lng: -74.0721,
-  }),
-  createAlumni({
-    id: 'andres-jejen',
-    name: 'Andres Jejen',
-    generation: '2.0',
-    city: 'Medellín',
-    country: 'Colombia',
-    lat: 6.2476,
-    lng: -75.5658,
-  }),
-  createAlumni({
-    id: 'carlos-javier-sanchez',
-    name: 'Carlos Javier Sánchez Martínez',
-    generation: '2.0',
-    city: 'Lima',
-    country: 'Perú',
-    lat: -12.0464,
-    lng: -77.0428,
-  }),
-  createAlumni({
-    id: 'vicente-ahumada',
-    name: 'Vicente Ahumada',
-    generation: '2.0',
-    city: 'Copiapó',
-    country: 'Chile',
-    lat: -27.3668,
-    lng: -70.3322,
-  }),
-  createAlumni({
-    id: 'tomas-valdes',
-    name: 'Tomas Ignacio Valdes Navarrete',
-    generation: '2.0',
-    city: 'Osorno',
-    country: 'Chile',
-    lat: -40.574,
-    lng: -73.134,
-  }),
-  createAlumni({
-    id: 'benjamin-aguirre',
-    name: 'Benjamin Aguirre',
-    generation: '2.0',
-    city: 'Santiago',
-    country: 'Chile',
-    lat: -33.47,
-    lng: -70.61,
-  }),
-  createAlumni({
-    id: 'darian-faez',
-    name: 'Darian Aaron Faez',
-    generation: '2.0',
-    city: 'Buenos Aires',
-    country: 'Argentina',
-    lat: -34.6037,
-    lng: -58.3816,
-  }),
-  createAlumni({
-    id: 'vicente-lizama',
-    name: 'Vicente Lizama',
-    generation: '2.0',
-    city: 'Arica',
-    country: 'Chile',
-    lat: -18.4783,
-    lng: -70.3126,
-  }),
-  createAlumni({
-    id: 'daniel-tualongo',
-    name: 'Daniel Tualongo',
-    generation: '2.0',
-    city: 'Quito',
-    country: 'Ecuador',
-    lat: -0.1807,
-    lng: -78.4678,
-  }),
-  createAlumni({
-    id: 'felipe-sepulveda',
-    name: 'Felipe Sepulveda',
-    generation: '2.0',
-    city: 'Santiago',
-    country: 'Chile',
-    lat: -33.41,
-    lng: -70.58,
-  }),
-  createAlumni({
-    id: 'eswin-miranda',
-    name: 'Eswin Miranda',
-    generation: '2.0',
-    city: 'Ciudad de Guatemala',
-    country: 'Guatemala',
-    lat: 14.6349,
-    lng: -90.5069,
+    address:
+      'Av. Sierra Vista 536, Lomas 4ta Sección, San Luis Potosí, S.L.P., México',
+    city: 'San Luis Potosí',
+    region: 'San Luis Potosí',
+    country: 'México',
+    lat: 22.1387642,
+    lng: -101.0363157,
   }),
 ]
+
+export const featuredAlumniIds = [
+  'enzo-giovanni-ravello',
+  'matias-gonzalez-toro',
+  'sofia-barraza',
+  'enrique-garza',
+  'trinidad-ormazabal',
+  'cristopher-ivan',
+] as const
+
+export function featuredAlumni(): Alumni[] {
+  return featuredAlumniIds
+    .map((id) => alumni.find((person) => person.id === id))
+    .filter((person): person is Alumni => !!person)
+}
+
+export function alumniLocationLabel(person: Alumni) {
+  return [person.city, person.country].filter(Boolean).join(', ')
+}
+
+/** Ciudad + región para la ficha pública (sin calle) */
+export function alumniProfessionalLocationLabel(person: Alumni) {
+  return [person.city, person.region].filter(Boolean).join(', ')
+}
+
+export function alumniMapFooterLines(person: Alumni) {
+  return {
+    city: person.city || 'Ubicación por confirmar',
+    regionCountry: [person.region, person.country].filter(Boolean).join(', '),
+  }
+}
+
+/** Texto de barbería solo si el alumno autorizó mostrarla */
+export function alumniCommercialLabel(person: Alumni) {
+  if (!person.showCommercialAddress) return null
+  if (person.businessName?.trim()) return person.businessName.trim()
+  if (person.address?.trim()) return person.address.trim()
+  return null
+}
+
+export function alumniAddressLabel(person: Alumni) {
+  const commercial = alumniCommercialLabel(person)
+  if (commercial) return commercial
+  return alumniProfessionalLocationLabel(person) || alumniLocationLabel(person) || 'Por confirmar'
+}
+
+/**
+ * Precisión real de las coordenadas: `address` cuando vienen de una dirección
+ * geocodificada y `city` cuando solo tenemos el centro de la ciudad.
+ */
+export function alumniMapPrecision(person: Alumni): 'address' | 'city' {
+  return person.address?.trim() ? 'address' : 'city'
+}
+
+export function alumniMapZoom(
+  person: Alumni,
+  variant: 'panel' | 'expanded',
+): number {
+  if (typeof person.mapZoom === 'number') {
+    return variant === 'expanded' ? person.mapZoom + 2 : person.mapZoom
+  }
+
+  if (alumniMapPrecision(person) === 'address') {
+    return variant === 'expanded' ? 17 : 15
+  }
+
+  return variant === 'expanded' ? 13 : 11
+}
+
+export function alumniMapsUrl(person: Alumni) {
+  if (typeof person.lat !== 'number' || typeof person.lng !== 'number') {
+    return null
+  }
+
+  const query = person.address?.trim()
+    ? encodeURIComponent(person.address)
+    : `${person.lat},${person.lng}`
+
+  return `https://www.google.com/maps/search/?api=1&query=${query}`
+}
+
+export function generationLabel(generation: Generation) {
+  const numbers: Record<Generation, string> = {
+    '1.0': '01',
+    '2.0': '02',
+  }
+  return `Generación SB #${numbers[generation]}`
+}
 
 export function initials(name: string) {
   return name

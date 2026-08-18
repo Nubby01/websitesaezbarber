@@ -6,12 +6,13 @@ import {
   useReducedMotion,
 } from 'framer-motion'
 import { Reveal } from './Reveal'
+import { AuroraHero } from './AuroraHero'
 import { AlumniFicha } from './AlumniFicha'
-import { AnimatedCounter } from './AnimatedCounter'
-import { SbBadge } from './SbBadge'
+import { AlumniCard } from './AlumniCard'
+import { VisagistasDirectory } from './VisagistasDirectory'
 import {
   alumni,
-  initials,
+  generationLabel,
   type Alumni,
   type Generation,
 } from '../data/alumni'
@@ -20,8 +21,8 @@ type Filter = 'Todos' | Generation
 
 const filters: { id: Filter; label: string }[] = [
   { id: 'Todos', label: 'Todos' },
-  { id: '1.0', label: 'Gen. 1.0' },
-  { id: '2.0', label: 'Gen. 2.0' },
+  { id: '1.0', label: generationLabel('1.0') },
+  { id: '2.0', label: generationLabel('2.0') },
 ]
 
 const PREVIEW_COUNT = 6
@@ -45,6 +46,12 @@ export function CertifiedCommunity() {
   const visible = expanded ? list : list.slice(0, PREVIEW_COUNT)
   const canExpand = list.length > PREVIEW_COUNT
 
+  const fichaPeople = useMemo(() => {
+    if (!selected) return list
+    if (list.some((person) => person.id === selected.id)) return list
+    return alumni
+  }, [list, selected])
+
   const openFicha = (person: Alumni) => {
     if (reduceMotion) {
       setSelected(person)
@@ -60,39 +67,55 @@ export function CertifiedCommunity() {
 
   return (
     <>
-      <section className="pt-32 md:pt-36 pb-16 md:pb-20 bg-background">
-        <div className="container-grid">
-          <Reveal className="mb-12 md:mb-16">
-            <p className="text-primary text-xs tracking-[0.3em] uppercase mb-5">
-              Comunidad · Metodología SB
-            </p>
-            <h1 className="text-display text-[clamp(3rem,8vw,5.5rem)] text-text-primary mb-4">
-              Visagistas certificados
-            </h1>
-            <p className="max-w-2xl text-text-secondary text-base md:text-lg font-light leading-relaxed mb-10 md:mb-12">
-              Cada profesional representa el estándar de calidad y criterio
-              desarrollado por Academia SB. Esta red es la prueba del método.
-            </p>
+      <AuroraHero
+        className="min-h-[min(72svh,680px)]"
+        contentClassName="pt-32 md:pt-36 pb-16 md:pb-20"
+        innerClassName="max-w-4xl"
+        ariaLabelledBy="visagistas-hero-title"
+      >
+        <motion.p
+          className="text-primary text-xs tracking-[0.3em] uppercase"
+          initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        >
+          Visagistas SB Certificados
+        </motion.p>
 
-            <div className="grid md:grid-cols-12 gap-8 md:gap-12 items-end">
-              <div className="md:col-span-4">
-                <AnimatedCounter
-                  value={alumni.length}
-                  duration={1400}
-                  className="text-display text-[clamp(5rem,16vw,8.5rem)] text-primary leading-none block"
-                />
-                <p className="mt-3 text-sm tracking-[0.2em] uppercase text-text-primary">
-                  Profesionales certificados
-                </p>
-              </div>
-              <p className="md:col-span-7 md:col-start-6 text-text-secondary text-lg font-light leading-relaxed max-w-xl">
-                Personas formadas para llevar el Visagismo SB al oficio real.
-                Explorá fichas y generaciones de la comunidad certificada.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+        <motion.h1
+          id="visagistas-hero-title"
+          className="text-display text-[clamp(2.6rem,9vw,5.6rem)] text-text-primary leading-[0.92]"
+          initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.85,
+            delay: 0.12,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          Directorio y Mapa Oficial de Visagistas SB
+        </motion.h1>
+
+        <motion.p
+          className="max-w-2xl text-text-secondary text-lg md:text-xl font-light leading-relaxed"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: 0.28,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          Ubica geográficamente al profesional certificado más cercano a ti.
+          Garantiza una experiencia de asesoría de imagen basada en ciencia,
+          respeto y empatía.
+        </motion.p>
+      </AuroraHero>
+
+      <VisagistasDirectory
+        activeId={selected?.id ?? expandingId}
+        onSelect={openFicha}
+      />
 
       <section
         id="comunidad"
@@ -105,11 +128,11 @@ export function CertifiedCommunity() {
               id="comunidad-title"
               className="text-display text-[clamp(2.6rem,6vw,4.2rem)] text-text-primary mb-4"
             >
-              Profesionales destacados
+              Profesionales certificados
             </h2>
             <p className="text-text-secondary max-w-xl font-light">
-              Selección de Visagistas SB. Tocá una tarjeta para abrir el perfil
-              completo.
+              Selecciona una tarjeta para ver el perfil completo o visita su
+              Instagram directamente.
             </p>
           </Reveal>
 
@@ -163,7 +186,7 @@ export function CertifiedCommunity() {
 
           <motion.ul
             layout
-            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5"
           >
             <AnimatePresence mode="popLayout">
               {visible.map((person, i) => {
@@ -179,7 +202,7 @@ export function CertifiedCommunity() {
                     animate={{
                       opacity: 1,
                       y: 0,
-                      scale: isExpanding ? 1.045 : 1,
+                      scale: isExpanding ? 1.03 : 1,
                       zIndex: isExpanding ? 5 : 1,
                     }}
                     exit={
@@ -211,79 +234,13 @@ export function CertifiedCommunity() {
                           }
                     }
                   >
-                    <motion.button
-                      type="button"
+                    <AlumniCard
+                      person={person}
                       onClick={() => openFicha(person)}
-                      whileHover={
-                        reduceMotion || isExpanding ? undefined : { y: -4 }
-                      }
-                      className={`group relative w-full text-left overflow-hidden border bg-surface transition-colors duration-300 p-5 md:p-6 shadow-soft ${
-                        isExpanding
-                          ? 'border-primary/50 bg-primary/5'
-                          : 'border-border hover:border-primary/40'
-                      }`}
-                      aria-label={`Ver perfil de ${person.name}`}
-                    >
-                      <span className="absolute inset-y-0 left-0 w-0.5 bg-primary scale-y-0 origin-top transition-transform duration-300 group-hover:scale-y-100" />
-
-                      <div className="flex items-start gap-4">
-                        <motion.div
-                          layoutId={
-                            selected?.id === person.id
-                              ? undefined
-                              : `photo-${person.id}`
-                          }
-                          className="relative size-20 md:size-24 shrink-0 overflow-hidden ring-1 ring-border"
-                          style={{
-                            background: person.photoBackdrop ?? '#FFFFFF',
-                          }}
-                        >
-                          {person.photo ? (
-                            <img
-                              src={person.photo}
-                              alt=""
-                              className="size-full object-cover"
-                              style={{
-                                objectPosition:
-                                  person.photoPosition ?? 'center 16%',
-                                transform: person.photoScale
-                                  ? `scale(${person.photoScale})`
-                                  : undefined,
-                                transformOrigin:
-                                  person.photoOrigin ?? 'center center',
-                              }}
-                              loading="lazy"
-                            />
-                          ) : (
-                            <span className="flex size-full items-center justify-center text-display text-2xl md:text-3xl text-primary leading-none">
-                              {initials(person.name)}
-                            </span>
-                          )}
-                        </motion.div>
-
-                        <div className="min-w-0 flex-1">
-                          <p className="text-display text-[1.55rem] md:text-[1.75rem] leading-[0.95] text-text-primary truncate group-hover:text-primary transition-colors">
-                            {person.name}
-                          </p>
-
-                          <div className="mt-2.5">
-                            <SbBadge />
-                          </div>
-
-                          <p className="mt-3 text-xs text-text-secondary tracking-wide truncate">
-                            Gen. {person.generation}
-                            {person.city ? ` · ${person.city}` : ''}
-                            {person.instagram
-                              ? ` · @${person.instagram}`
-                              : ''}
-                          </p>
-                        </div>
-                      </div>
-
-                      <p className="mt-5 text-[10px] tracking-[0.2em] uppercase text-text-secondary group-hover:text-primary transition-colors">
-                        Ver perfil
-                      </p>
-                    </motion.button>
+                      isExpanding={isExpanding}
+                      selectedId={selected?.id ?? null}
+                      reduceMotion={reduceMotion}
+                    />
                   </motion.li>
                 )
               })}
@@ -311,7 +268,7 @@ export function CertifiedCommunity() {
 
       <AlumniFicha
         person={selected}
-        people={list}
+        people={fichaPeople}
         onClose={() => setSelected(null)}
         onNavigate={setSelected}
       />

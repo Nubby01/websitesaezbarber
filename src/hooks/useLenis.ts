@@ -11,6 +11,14 @@ export function startLenis() {
   lenisInstance?.start()
 }
 
+export function scrollLenisToTop(immediate = false) {
+  if (lenisInstance) {
+    lenisInstance.scrollTo(0, { immediate })
+    return
+  }
+  window.scrollTo({ top: 0, behavior: immediate ? 'auto' : 'smooth' })
+}
+
 export function useLenis() {
   useEffect(() => {
     const lenis = new Lenis({

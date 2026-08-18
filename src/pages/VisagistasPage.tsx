@@ -5,10 +5,10 @@ export function VisagistasPage() {
   return (
     <>
       <Helmet>
-        <title>Visagistas SB | Comunidad certificada Academia SB</title>
+        <title>Visagismo SB | Directorio y Mapa Oficial de Visagistas SB</title>
         <meta
           name="description"
-          content="Conocé a los Visagistas SB certificados: fichas, generaciones y perfiles de la comunidad Academia SB."
+          content="Directorio y mapa oficial de Visagistas SB. Ubica al profesional certificado más cercano y explora perfiles con asesoría basada en ciencia, respeto y empatía."
         />
       </Helmet>
       <CertifiedCommunity />
