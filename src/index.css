@@ -178,6 +178,7 @@
   font-family: var(--font-sans);
   background: #e9ece5;
   z-index: 0;
+  touch-action: pan-x pan-y;
 }
 
 [data-theme='dark'] .leaflet-container {
@@ -225,14 +226,17 @@
   background: #111111;
 }
 
-.sb-directory-map .leaflet-tile-pane,
-.sb-profile-map .leaflet-tile-pane {
-  filter: saturate(0.22) brightness(1.04) contrast(0.96);
-}
+/* filter en el tile-pane rompe los tiles en Safari/iOS; solo desktop ancho */
+@media (min-width: 768px) and (pointer: fine) and (hover: hover) {
+  .sb-directory-map .leaflet-tile-pane,
+  .sb-profile-map .leaflet-tile-pane {
+    filter: saturate(0.22) brightness(1.04) contrast(0.96);
+  }
 
-[data-theme='dark'] .sb-directory-map .leaflet-tile-pane,
-[data-theme='dark'] .sb-profile-map .leaflet-tile-pane {
-  filter: saturate(0.12) brightness(0.82) contrast(1.04);
+  [data-theme='dark'] .sb-directory-map .leaflet-tile-pane,
+  [data-theme='dark'] .sb-profile-map .leaflet-tile-pane {
+    filter: saturate(0.12) brightness(0.82) contrast(1.04);
+  }
 }
 
 .sb-map-marker {

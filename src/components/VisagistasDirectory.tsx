@@ -248,7 +248,7 @@ export function VisagistasDirectory({
             </div>
           </Reveal>
 
-          <Reveal className="lg:col-span-8 xl:col-span-9" delay={0.06}>
+          <div className="lg:col-span-8 xl:col-span-9">
             <AlumniDirectoryMap
               people={filtered}
               activeId={activeId}
@@ -260,7 +260,7 @@ export function VisagistasDirectory({
               Las ciudades con varios egresados se agrupan en un solo marcador.
               Selecciona el grupo para ver perfiles individuales.
             </p>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>

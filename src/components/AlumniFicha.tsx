@@ -48,8 +48,8 @@ function StaggerItem({
   return (
     <motion.div
       className={className}
-      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={reduceMotion ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{
         duration: 0.38,
         delay: reduceMotion ? 0 : 0.08 + index * 0.05,
@@ -202,13 +202,13 @@ function LocationFicha({
   const locationText = contextLabel || 'ubicación por confirmar'
 
   return (
-    <StaggerItem
-      index={staggerIndex}
-      reduceMotion={reduceMotion}
-      className="w-full md:flex-1 md:min-h-0 md:flex md:flex-col"
-    >
+    <div className="w-full md:flex-1 md:min-h-0 md:flex md:flex-col">
       <div className="border border-border md:border-0 bg-surface-secondary/40 flex flex-col md:flex-1 md:min-h-0 md:h-full">
-        <div className="pt-8 px-6 pb-5 shrink-0 flex flex-col gap-3">
+        <StaggerItem
+          index={staggerIndex}
+          reduceMotion={reduceMotion}
+          className="pt-8 px-6 pb-5 shrink-0 flex flex-col gap-3"
+        >
           <p className="text-[10px] tracking-[0.25em] uppercase text-text-secondary">
             Ubicación Profesional
           </p>
@@ -216,21 +216,26 @@ function LocationFicha({
             Ejerciendo actualmente en{' '}
             <span className="text-text-primary">{locationText}</span>
           </p>
-        </div>
+        </StaggerItem>
 
-        <div className="relative border-t border-border min-h-[15rem] sm:min-h-[18rem] md:min-h-0 md:flex-1">
+        {/* Altura explícita: absolute+h-full falla en el scroll móvil de la ficha */}
+        <div className="relative border-t border-border h-[min(42svh,18rem)] shrink-0 md:h-auto md:min-h-0 md:flex-1 md:shrink">
           {showMap ? (
             <AlumniProfileMap
               person={person}
               variant="panel"
-              className="absolute inset-0 h-full"
+              className="size-full"
             />
           ) : (
-            <div className="absolute inset-0 bg-surface-secondary/80 animate-pulse" />
+            <div className="size-full bg-surface-secondary/80 animate-pulse" />
           )}
         </div>
 
-        <div className="relative z-20 px-6 pt-4 pb-5 shrink-0 border-t border-border pointer-events-auto">
+        <StaggerItem
+          index={staggerIndex + 1}
+          reduceMotion={reduceMotion}
+          className="relative z-20 px-6 pt-4 pb-5 shrink-0 border-t border-border pointer-events-auto"
+        >
           <p className="text-sm text-text-primary font-medium">
             {mapFooter.city}
           </p>
@@ -242,9 +247,9 @@ function LocationFicha({
           <div className="mt-3">
             <AlumniProfileMapExpandButton onClick={onExpand} />
           </div>
-        </div>
+        </StaggerItem>
       </div>
-    </StaggerItem>
+    </div>
   )
 }
 
@@ -285,11 +290,11 @@ function ExpandedMapLayer({
 
       <motion.div
         className="relative z-10 flex flex-col w-full h-[100dvh] sm:h-[min(90svh,780px)] sm:w-[min(96vw,1120px)] bg-surface border-0 sm:border border-border shadow-soft overflow-hidden"
-        initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.97 }}
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         transition={
-          reduceMotion ? { duration: 0.15 } : { duration: 0.34, ease: staggerEase }
+          reduceMotion ? { duration: 0.15 } : { duration: 0.28, ease: staggerEase }
         }
         onClick={(e) => e.stopPropagation()}
       >
@@ -369,7 +374,7 @@ export function AlumniFicha({
     setShowMap(false)
     if (!person) return
 
-    const delay = reduceMotion ? 0 : 420
+    const delay = reduceMotion ? 0 : 180
     const t = window.setTimeout(() => setShowMap(true), delay)
     return () => window.clearTimeout(t)
   }, [person?.id, reduceMotion])
@@ -450,17 +455,13 @@ export function AlumniFicha({
           <motion.article
             key={person.id}
             className="relative z-[10] pointer-events-auto w-full md:max-w-4xl lg:max-w-5xl md:mx-12 lg:mx-16 bg-surface border-0 md:border border-border shadow-soft overflow-hidden flex flex-col h-[100dvh] md:h-[min(88svh,640px)]"
-            initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={
-              reduceMotion
-                ? { opacity: 0 }
-                : { opacity: 0, scale: 0.96 }
-            }
+            initial={reduceMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={
               reduceMotion
                 ? { duration: 0.15 }
-                : { duration: 0.42, ease: staggerEase }
+                : { duration: 0.32, ease: staggerEase }
             }
             onClick={(e) => e.stopPropagation()}
           >
@@ -547,7 +548,7 @@ export function AlumniFicha({
                     ) : null}
                   </div>
 
-                  <div className="flex flex-col min-h-0 md:h-full shrink-0 md:w-[40%] px-8 py-8 md:p-0 md:bg-surface-secondary/35 border-t md:border-t-0 md:border-l border-border">
+                  <div className="flex flex-col min-h-0 md:h-full shrink-0 md:w-[40%] px-0 py-0 md:bg-surface-secondary/35 border-t md:border-t-0 md:border-l border-border">
                     <LocationFicha
                       person={person}
                       contextLabel={contextLabel}

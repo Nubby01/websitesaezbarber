@@ -17,6 +17,7 @@ import {
   sbPersonMarkerIcon,
 } from '../lib/sbMap'
 import { MapZoomControls } from './MapZoomControls'
+import { MapSizeSync } from './MapSizeSync'
 
 type AlumniDirectoryMapProps = {
   people: Alumni[]
@@ -25,21 +26,6 @@ type AlumniDirectoryMapProps = {
   onSelect: (person: Alumni) => void
   onExpandCity: (key: string | null) => void
   className?: string
-}
-
-function InvalidateSize() {
-  const map = useMap()
-
-  useEffect(() => {
-    const t1 = window.setTimeout(() => map.invalidateSize(), 50)
-    const t2 = window.setTimeout(() => map.invalidateSize(), 320)
-    return () => {
-      window.clearTimeout(t1)
-      window.clearTimeout(t2)
-    }
-  }, [map])
-
-  return null
 }
 
 function MapViewController({
@@ -127,7 +113,7 @@ export function AlumniDirectoryMap({
   if (located.length === 0) {
     return (
       <div
-        className={`sb-map-card sb-map-card--directory flex h-[420px] md:h-[560px] items-center justify-center text-text-secondary text-sm ${className}`}
+        className={`sb-map-card sb-map-card--directory flex h-[min(58svh,420px)] md:h-[560px] items-center justify-center text-text-secondary text-sm ${className}`}
       >
         Ubicaciones en actualización
       </div>
@@ -141,7 +127,8 @@ export function AlumniDirectoryMap({
 
   return (
     <div
-      className={`sb-map-card sb-map-card--directory sb-directory-map relative h-[420px] md:h-[560px] ${className}`}
+      data-lenis-prevent
+      className={`sb-map-card sb-map-card--directory sb-directory-map relative h-[min(58svh,420px)] md:h-[560px] ${className}`}
     >
       <MapContainer
         key={`directory-${mapTheme}-${located.length}`}
@@ -153,7 +140,7 @@ export function AlumniDirectoryMap({
         attributionControl={false}
       >
         <TileLayer attribution="" url={tileUrl} />
-        <InvalidateSize />
+        <MapSizeSync deps={[located.length, activeId, expandedCityKey]} />
         <MapViewController
           people={located}
           activePerson={activePerson}

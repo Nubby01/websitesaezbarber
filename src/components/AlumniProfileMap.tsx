@@ -12,6 +12,7 @@ import {
 import { useTheme } from '../hooks/useTheme'
 import { sbMapTileUrl, sbPersonMarkerIcon } from '../lib/sbMap'
 import { MapZoomControls } from './MapZoomControls'
+import { MapSizeSync } from './MapSizeSync'
 
 type MapVariant = 'panel' | 'expanded'
 
@@ -178,7 +179,7 @@ export function AlumniProfileMap({
 
   const shellClass = expanded
     ? 'sb-map-card sb-map-card--square sb-profile-map relative h-full min-h-0 border-0 shadow-none'
-    : `sb-map-card sb-map-card--square sb-profile-map sb-profile-map--panel relative h-full min-h-0 overflow-hidden border-0 shadow-none${hovered ? ' is-hovered' : ''}`
+    : `sb-map-card sb-map-card--square sb-profile-map sb-profile-map--panel relative size-full min-h-[15rem] md:min-h-0 overflow-hidden border-0 shadow-none${hovered ? ' is-hovered' : ''}`
 
   if (!hasLocation) {
     return (
@@ -192,6 +193,7 @@ export function AlumniProfileMap({
 
   return (
     <div
+      data-lenis-prevent
       className={`${shellClass} ${className}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -213,6 +215,7 @@ export function AlumniProfileMap({
         className="size-full z-0"
       >
         <TileLayer attribution="" url={tileUrl} />
+        <MapSizeSync deps={[person.id, variant, expanded]} />
         <ProfileMapIntro
           person={person}
           variant={variant}
